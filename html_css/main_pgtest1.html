@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <title>pgtest_main</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            background-color: #FFFAFA;
+        }
+
+        /*상단 내비게이션바*/
+        #navigation1 {
+            margin: 50px 30px 50px 0px;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            font-family: 'Nanum Gothic', sans-serif;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+        }
+
+        #navigation1 a {
+            float: right;
+            color: black;
+            font-size: 12pt;
+            text-align: right;
+            padding: 0px 15px;
+            text-decoration: none;
+        }
+
+        #navigation1 a:hover {
+            color: black;
+            font-weight: bold;
+        }
+
+
+        /* 로고, 검색창 전체 박스*/
+        #logo_search_wrap {
+            margin: auto;
+            margin-bottom: 50px;
+            width: 1300px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        /* 로고 이미지 박스*/
+        #logo1 {
+            float: left;
+            margin: 5px 25px;
+            background-color: lightcoral;
+            width: 300px;
+            height: 100px;
+
+        }
+
+        /* 검색 전체 영역 */
+        #search_wrap {
+            display: flex;
+            flex-direction: row;
+            margin: 45px 15px;
+            width: 720px;
+            height: 55px;
+            border: 3px solid #68007A;
+        }
+
+        /* 검색 셀렉트 박스 (제목, 저자, 출판사) */
+        #select_search_box {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            width: 150px;
+            padding: .8em .8em;
+            font-size: 15px;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-weight: bold;
+            background: white url(img/baseline_arrow_drop_down_black_24dp.png) no-repeat 95% 50%;
+            border: none;
+            outline: none;
+        }
+
+        #select_search_box::-ms-expand { display: none; }
+
+        /* 검색바 */
+        #search_bar {
+            width: 500px;
+            padding-left: 7px;
+            font-size: 17px;
+            font-family: 'Nanum Gothic', sans-serif;
+            font-weight: bold;
+            border: none;
+            outline: none;
+        }
+
+        /* 검색 버튼 */
+        #search_btn {
+            width: 70px;
+            background: #68007A url(img/baseline_search_white_36dp.png) no-repeat 50% 50%;
+            border: none;
+            font-size: 15px;
+            font-weight: bold;
+            outline: none;
+        }
+
+        /* 베스트 셀러, 신간도서 */
+        .best_new_wrap {
+            width: 1780px;
+            display: flex;
+            align-items: center;
+            margin: 10px 50px;
+        }
+        
+        #best_seller_wrap #new_book_wrap {
+            display: flex;
+            align-content: center;
+        }
+
+        #best1, #best2, #best3, #best4, #best5, #best6,
+        #new1, #new2, #new3, #new4, #new5, #new6 {
+            width: 250px;
+            margin: 15px 10px;
+        }
+
+        h2 {
+            padding: 20px;
+            color: #68007A;
+            font-family: 'Nanum Gothic', sans-serif;
+            text-decoration: underline;
+            text-decoration-style: double;
+        }
+
+        /* 하단 페이지 이동 버튼 */
+        #before_next_btn {
+            float: right;
+            margin-right: 30px;
+        }
+
+        #before_btn, #next_btn {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="navigation1">
+        <div><a href="#">강남점</a></div>
+        <div><a href="#">장르별 더보기</a></div>
+        <div><a href="#">도서 신청</a></div>
+        <div><a href="#">로그인</a></div>
+    </div>
+
+    <!--로고, 검색창 전체 박스-->
+    <div id="logo_search_wrap">
+        <img id="logo1" src="img/pj_logo.png">
+        <div id="search_wrap">
+            <select id="select_search_box">
+                <option>통합검색</option>
+                <option>제목</option>
+                <option>저자</option>
+                <option>출판사</option>
+            </select>
+            <input type="text" id="search_bar">
+            <input type="button" id="search_btn">
+            <!--<form action="처리할 페이지 주소" method="get">
+                <input type="text" name="search" id="search_bar">
+                <button type="submit" id="search_btn">검색</button>
+            </form>-->
+        </div>
+    </div>
+
+    <div class="best_new_wrap">
+        <h2>Best<br> Seller</h2>
+        <div id="best_seller_wrap">
+            <img id="best1" src="best_new/small_90686937.jpg">
+            <img id="best2" src="best_new/small_89309569.jpg">
+            <img id="best3" src="best_new/small_74419916.jpg">
+            <img id="best4" src="best_new/small_37300128.jpg">
+            <img id="best5" src="best_new/small_90004431.jpg">
+            <img id="best6" src="best_new/small_90125491.jpg">
+        </div>
+    </div>
+
+    <div class="best_new_wrap">
+        <h2>New<br> Books</h2>
+        <div id="new_book_wrap">
+            <img id="new1" src="best_new/small_90687185.jpg">
+            <img id="new2" src="best_new/small_90594107.jpg">
+            <img id="new3" src="best_new/small_90367403.jpg">
+            <img id="new4" src="best_new/small_82223884.jpg">
+            <img id="new5" src="best_new/small_90391442.jpg">
+            <img id="new6" src="best_new/small_90339705.jpg">
+        </div>
+    </div>
+
+    <!--앞으로 가기/ 뒤로 가기 이미지 버튼-->
+    <div id="before_next_btn">
+        <input id="before_btn" type="image" src="img/baseline_navigate_before_black_18dp.png">
+        <input id="next_btn" type="image" src="img/baseline_navigate_next_black_18dp.png">
+    </div>
+</body>
+
+</html>

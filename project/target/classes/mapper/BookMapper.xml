@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="mapper.BookMapper">
+
+	<!-- 도서 재고 현황 갱신 -->
+	<update id="updateBookStock"
+		parameterType="com.ssm.project.domain.BookStockVO">
+		update book_stock set quantity=#{quantity},
+		limit=#{limit}
+		where book_id=#{bookId}
+	</update>
+
+	<!-- 전체 도서 재고 현황 조회 -->
+	<select id="getAllBookStock"
+		resultType="com.ssm.project.domain.BookStockVO">
+		select * from book_stock order by id
+	</select>
+
+	<!-- 개별 도서 재고 현황 조회 -->
+	<select id="getBookStockByBookId" parameterType="int"
+		resultType="com.ssm.project.domain.BookStockVO">
+		select * from book_stock
+		where book_id=#{bookId}
+	</select>
+
+	<!-- 전체 도서 재고 현황 조회 : 우측 도서 매대 비치 -->
+	<select id="getAllBookStockForScreen"
+		resultType="com.ssm.project.domain.BookStockForScreenVO">
+		select bs.id, bt.book_img, bt.genre, bt.name, bt.author,
+		bt.isbn10, bs.quantity as quantity, bs.limit, bs.stand_location
+		from
+		book_stock bs, book_tbl bt
+		where bs.isbn10 = bt.isbn10
+		order by
+		bt.genre, bs.id
+	</select>
+
+	<!--전체 도서 현황 조회 -->
+	<select id="getAllBooks"
+		resultType="com.ssm.project.domain.BookVO">
+		select * from book_tbl order by genre, id
+	</select>
+
+	<!-- 개별 도서 재고량 조회 -->
+	<select id="getStockByIsbn10" resultType="int">
+		select quantity from
+		book_stock
+		where isbn10 =(
+		select isbn10 from book_tbl
+		where isbn13 = #{isbn13}
+		)
+	</select>
+
+	<!-- 개별 도서 재고량 갱신 -->
+	<update id="updateStock" parameterType="hashMap">
+		update book_stock set
+		quantity = #{quantity}
+		where isbn10 =(
+		select isbn10 from book_tbl
+		where isbn13 = #{isbn13}
+		)
+	</update>
+
+	<!-- 전체 도서 재고량 보충(5권씩) -->
+	<update id="updateAllStock">
+		update book_stock set quantity = 5
+	</update>
+
+	<!-- 이미지 업데이트 배치 작업 : 도서 아이디 최솟값(첫번째 값) -->
+	<select id="getFirstBookId" resultType="int">
+		select min(id) from
+		book_tbl
+	</select>
+
+	<!-- 이미지 업데이트 배치 작업 : 실제 이미지 업데이트 -->
+	<update id="updateImgBatch" parameterType="hashMap">
+		update book_tbl set
+		book_img=#{bookImg}
+		where id=#{id}
+	</update>
+
+	<!-- 내방 고객 현황 조회 -->
+	<select id="getEntrances" resultType="CustomerEntranceVO">
+		select * from
+		customer_entrance_tbl
+	</select>
+
+	<!-- 내방 고객 시간대 별 현황 조회 -->
+	<select id="getEntrancesByDate" parameterType="hashMap"
+		resultType="CustomerEntranceVO">
+		select * from customer_entrance_tbl
+		where entrance_date =
+		#{entranceDate}
+		and entrance_time_band = #{entranceTimeBand}
+	</select>
+
+	<!-- 내방 고객 시간대 별 현황 조회 : 특정 시간 이내 -->
+	<select id="getEntrancesTilTimeBand"
+		parameterType="EntranceDateVO" resultType="CustomerEntranceVO">
+		<![CDATA[
+		select * from customer_entrance_tbl
+		where entrance_date = #{entranceDate}
+		and to_number(substr(entrance_time_band, 0, 2)) < to_number(substr(#{entranceTimeBand}, 0, 2))
+		order by entrance_time_band
+		]]>
+	</select>
+
+	<!-- 내방 고객 시간대 별 현황 조회 : 특정 시간대 -->
+	<select id="getEntrancesByTimeBand"
+		parameterType="EntranceDateVO" resultType="CustomerEntranceVO">
+		<![CDATA[
+		select * from customer_entrance_tbl
+		where entrance_date = #{entranceDate}
+		and to_number(substr(entrance_time_band, 0, 2)) = to_number(substr(#{entranceTimeBand}, 0, 2))
+		order by entrance_time_band
+		]]>
+	</select>
+
+	<!-- 내방고객 현황 삽입 -->
+	<insert id="insertEntrance" parameterType="CustomerEntranceVO">
+		insert into
+		customer_entrance_tbl values (
+		customer_entrance_seq.nextval,
+		#{entranceDate},
+		#{entranceTimeBand},
+		#{visit1},
+		#{visit2},
+		#{visit3},
+		#{visit4},
+		#{visit5},
+		#{visit6},
+		#{visit7},
+		#{visit8},
+		#{visit9},
+		#{visit10},
+		#{visit11},
+		#{visit12},
+		#{visit13},
+		#{visit14},
+		#{visit15},
+		#{visit16},
+		#{visit17}
+		)
+	</insert>
+
+	<!-- 재고 업데이트 반영 여부 조회 -->
+	<select id="getStockUpdateYN" parameterType="hashMap"
+		resultType="String">
+		select update_yn from stock_update_yn_tbl
+		where stock_date =
+		#{stockDate} and time_band = #{timeBand}
+	</select>
+
+	<!-- 재고 업데이트 반영 여부 생성(각 날짜 시간대별) -->
+	<insert id="insertStockUpdateYN" parameterType="hashMap">
+		insert into
+		stock_update_yn_tbl
+		values (#{stockDate}, #{timeBand}, #{updateYn})
+	</insert>
+
+	<!-- 재고 업데이트 반영 여부 업데이트 수정(각 날짜 시간대별) -->
+	<update id="updateStockUpdateYN" parameterType="hashMap">
+		update
+		stock_update_yn_tbl
+		set update_yn = #{updateYn}
+		where stock_date = #{stockDate} and time_band
+		= #{timeBand}
+	</update>
+
+	<!-- 도서 검색 -->
+	<select id="getBookBySearch" parameterType="BookSearchVO" resultType="BookVO">
+		SELECT id, name, genre, book_img, author, pubs, price, eval_point FROM book_tbl
+		<if test="searchKind=='제목'">
+			WHERE name like '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchKind=='저자'">
+			WHERE author like '%' || #{searchWord} || '%'
+		</if>
+		<if test="searchKind=='출판사'">
+			WHERE pubs like '%' || #{searchWord} || '%'
+		</if>
+		ORDER BY ID ASC
+	</select>
+
+</mapper>

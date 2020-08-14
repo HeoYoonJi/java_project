@@ -1,0 +1,482 @@
+@charset "UTF-8";
+
+/* 개별 도서 현황(팝업) */
+div#one_book_detail_popup {
+	width: 500px;
+	height: 200px;
+	background-color: #fff;
+	position: absolute;
+	left: 710px;
+	top: 220px;
+	z-index: 10;
+	display: flex;
+	flex-direction: row-reverse;
+	justify-content: flex-start;
+	border: 3px solid #68007A;
+	border-radius: 10px;
+}
+
+/* 개별 도서 현황 팝업 : 도서 정보*/
+div#popup1 {
+	width: 330px;
+	height: 170px;
+	margin: 15px 15px;
+	line-height: 35px;
+	overflow: auto;
+	-ms-overflow-style: none;
+}
+
+div#popup1::-webkit-scrollbar {
+	display: none;
+}
+
+/* 개별 도서 현황 팝업 : 도서 이미지*/
+div#popup2 {
+	width: 120px;
+	height: 200px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 개별 도서 현황 팝업 닫기 버튼*/
+div#close_btn {
+	height: 195px;
+	margin: 5px 5px 0 0;
+}
+
+button#popup_close_btn {
+	font-size: 20px;
+	color: #68007A;
+	background-color: #fff;
+	border-style: none;
+	outline: none;
+	border-radius: 10px;
+}
+
+/* 좌측 내방 고객 현황 시간 입력 */
+div#left_entrance_time {
+	width: 600px;
+	height: 50px;
+	display: flex;
+	align-items: center;
+	width: 650px;
+	margin: 0 0 25px 50px;
+}
+
+/* 좌측 내방 고객 현황 조회 버튼(조회하기)*/
+a#customer_entrances_btn {
+	width: 80px;
+	height: 30px;
+	border: 2px solid #ccc;
+	color: #000;
+	font-size: 1em;
+	text-decoration: none;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+/* 내방 고객 조회 시간 입력 필드 (셀렉트 박스) */
+#entrance_time {
+	width: 100px;
+	height: 30px;
+	font-size: 1.0em;
+	margin-top: 20px;
+	margin-left: 10px;
+}
+
+/* 내방 고객 조회 날짜 입력 필드 (달력) */
+#entrance_date {
+	width: 200px;
+	height: 30px;
+	font-size: 1.0em;
+	margin-top: 20px;
+}
+
+/* 전체 레이아웃 */
+body {
+	margin: 0;
+	overflow-x: hidden;
+}
+
+div#wrap {
+	width: 1900px;
+	height: 100vh;
+	overflow-x: auto;
+	background-color: #fff;
+	margin: 0;
+}
+
+/* 검색 전체 영역 */
+#search_wrap {
+	display: flex;
+	flex-direction: row;
+	width: 720px;
+	height: 55px;
+	border: 3px solid #68007A;
+	margin: 70px 0 0 290px;
+}
+
+/* 검색 셀렉트 박스 (제목, 저자, 출판사) */
+#select_search_box {
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	appearance: none;
+	width: 150px;
+	padding: .8em .8em;
+	font-size: 15px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold;
+	background: white url(../img/baseline_arrow_drop_down_black_24dp.png)
+		no-repeat 95% 50%;
+	border: none;
+	outline: none;
+}
+
+#select_search_box::-ms-expand {
+	display: none;
+}
+
+/* 검색바 */
+#search_bar {
+	width: 500px;
+	padding-left: 7px;
+	font-size: 17px;
+	font-family: 'Nanum Gothic', sans-serif;
+	font-weight: bold;
+	border: none;
+	outline: none;
+}
+
+/* 검색 버튼 */
+#search_btn {
+	width: 70px;
+	background: #68007A url(../img/baseline_search_white_36dp.png) no-repeat
+		50% 50%;
+	border: none;
+	font-size: 15px;
+	font-weight: bold;
+	outline: none;
+}
+
+/* 좌측 내방 고객 현황 */
+div#customer_section {
+	width: 650px;
+	height: 700px;
+	float: left;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 시간대 별 방문 현황 테이블 */
+table#entrance_tbl {
+	width: 600px;
+	border-spacing: 0;
+	border-left: 1px solid #ccc;
+	border-top: 1px solid #ccc;
+}
+
+/* 시간대 별 방문 현황 테이블 : 인원 현황 개별셀  */
+table#entrance_tbl td[id^=man] {
+	width: 27px;
+	height: 27px;
+	text-align: center;
+	border-spacing: 0;
+	border-right: 1px solid #DCC1DC;
+	border-bottom: 1px solid #DCC1DC;
+	padding: 5px 0;
+	font-size: 10pt;
+	color: #A550A6;
+	font-weight: bold;
+	background-color: #fff;
+}
+
+/* 시간대 별 방문 현황 테이블 : 시간대 개별셀  */
+table#entrance_tbl td[id^=timeLine] {
+	/* background-color:#EDD3ED; */
+	width: 124px;
+	font-weight: bold;
+	color: #B952BA;
+	font-size: 10pt;
+	text-align: center;
+	border-spacing: 0;
+	border-right: 1px solid #DCC1DC;
+	border-bottom: 1px solid #DCC1DC;
+	padding: 5px 0;
+	font-size: 10pt;
+	color: #A550A6;
+	font-weight: bold;
+}
+
+/* 시간대 별 방문 현황 테이블 : 시간대 타이틀  */
+table#entrance_tbl thead tr th#entrance_time_title {
+	border-bottom: 1px solid #DCC1DC;
+	border-right: 1px solid #DCC1DC;
+	padding: 15px 10px;
+	background-color: #BD85C8;
+	color: #fff;
+}
+
+/* 시간대 별 방문 현황 테이블 : 인원현황 타이틀  */
+table#entrance_tbl thead tr th#entrance_man_title {
+	border-right: 1px solid #DCC1DC;
+	border-bottom: 1px solid #DCC1DC;
+	padding: 15px 10px;
+	background-color: #BD85C8;
+	color: #fff;
+}
+
+/* 시간대 별 방문 현황 테이블 : 시간대 타이틀(짝수셀) */
+table#entrance_tbl tr:nth-child(2n) {
+	background-color: #E1BDE1;
+}
+
+/* 시간대 별 방문 현황 테이블 : 시간대 타이틀(홀수셀) */
+table#entrance_tbl tr:nth-child(2n+1) {
+	background-color: #EDD3ED;
+}
+
+/* 중간 도서 매대 */
+div#stand_section {
+	width: calc(100% - 1250px);
+	height: 800px;
+	float: left;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+div#stand_section a {
+	text-decoration: none;
+	color: #000;
+}
+
+/* 장르 공통 스탠드 */
+div[id$="stand"] {
+	display: flex;
+	flex-wrap: wrap;
+}
+
+/*중간 도서 매대 : 장르별 배경색*/
+div#IT_stand {
+	background-color: #E6E6FA;
+}
+
+div#novel_stand {
+	background-color: #E6E6FA;
+}
+
+div#self_develop_stand {
+	background-color: #C9BADD;
+}
+
+div#trip_stand {
+	background-color: #C9BADD;
+}
+
+/* 1.IT 모바일, 2.소설 */
+div#IT_stand, div#novel_stand {
+	width: 280px;
+	height: 120px;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+/* 3.자기계발, 4.여행 */
+div#self_develop_stand, div#trip_stand {
+	width: 120px;
+	height: 280px;
+	border-collapse: collapse;
+	border: 1px solid black;
+}
+
+/* 중간 도서 매대 : 도서번호 셀 */
+div[class$="stand_book_num"] {
+	width: 40px;
+	height: 40px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	/*background-color: cyan;*/
+	padding: 0;
+}
+
+/* 도서 검색 결과 팝업 */
+#books_search_section {
+	position: absolute;
+	top: 300px;
+	left: 655px;
+	width: 600px;
+	height: 500px;
+	border: 3px solid #68007A;
+	padding: 0 10px 10px 10px;
+	background-color: #fff;
+	overflow-x: hidden;
+	overflow-y: auto;
+	z-index: 5;
+	-ms-overflow-style: none;
+}
+
+#books_search_section::-webkit-scrollbar {
+	display: none;
+}
+
+/* 도서 검색 결과 팝업 : 개별 도서 섹션 */
+.book_search_section {
+	width: 600px;
+	height: 150px;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0;
+	overflow-x: hidden;
+}
+
+/* 도서 검색 결과 팝업 닫기 버튼 */
+button#search_close_btn {
+	float: right;
+	margin: 5px 5px 0 0;
+	position: -webkit-sticky; /* Safari */
+  	position: sticky;
+  	top: 0;
+  	padding-top: 5px;
+  	font-size: 20px;
+	color: #68007A;
+	background-color: #fff;
+	border-style: none;
+	outline: none;
+}
+
+/* 우측 도서 현황 */
+div#books_section {
+	position: absolute;
+	left: calc(100% - 600px);
+	top: 70px;
+	width: 600px;
+	height: 100vh;
+	/* background-color: red; */
+	float: left;
+	overflow-x: hidden;
+	overflow-y: auto;
+	z-index: 2;
+}
+
+/* 우측 도서 재고 현황 */
+div#books_stock_section {
+	position: absolute;
+	left: calc(100% - 600px);
+	top: 70px;
+	width: 600px;
+	height: 100vh;
+	background-color: #fff;
+	float: left;
+	overflow-x: hidden;
+	overflow-y: auto;
+	z-index: 3;
+}
+
+/* 우측 도서/재고 현황 : 개별 도서 섹션 */
+div.book_section {
+	width: 600px;
+	height: 150px;
+	display: flex;
+	flex-wrap: wrap;
+	background-color: #fff;
+	border-bottom: 1px solid #ccc;
+	padding: 10px 0;
+	overflow-x: hidden;
+}
+
+/* 우측 도서/재고 현황 : 개별 도서 섹션 셀 */
+div.book_cell {
+	padding: 0 5px;
+	font-size: 9pt;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+/* 우측 도서/재고 현황 : 도서 번호 */
+div[id^="book_num"], div[id^="stock_book_num"], div[id^="book_search_num"] {
+	width: 30px;
+	height: 150px;
+	/* background-color: #F2F2F2; */
+}
+
+/* 우측 도서/재고 현황 : 도서 아이디 */
+div[id^="book_id"], div[id^="stock_book_id"], div[id^="book_search_id"] {
+	width: 20px;
+	height: 150px;
+	/* background-color: #E7B9C0; */
+}
+
+/* 우측 도서/재고 현황 : 도서 이미지 */
+div[id^="book_img"], div[id^="stock_book_img"], div[id^="book_search_img"] {
+	width: 90px;
+	height: 150px;
+	/* background-color: #FFE5D4; */
+}
+
+/* 우측 도서/재고 현황 : 도서 장르 */
+div[id^="book_genre"], div[id^="stock_book_genre"], div[id^="book_search_genre"] {
+	width: 60px;
+	height: 150px;
+	/* background-color: #FFFCCC; */
+}
+
+/* 우측 도서/재고 현황 : 도서 제목 */
+div[id^="book_name"], div[id^="stock_book_name"], div[id^="book_search_name"] {
+	width: 150px;
+	height: 150px;
+	line-height: 20px;
+	text-overflow: ellipsis;
+	/* background-color: #C8EFD4; */
+}
+
+/* 우측 도서/재고 현황 : 저자, 출판사, 정가 */
+div[id^="book_author"], div[id^="stock_book_author"], div[id^="book_search_author"] {
+	width: 100px;
+	height: 150px;
+	/* background-color: #C8EBFA; */
+}
+
+/* 우측 도서/재고 현황 : 평점 */
+div[id^="book_eval_point"], div[id^="book_search_eval_point"] {
+	width: 30px;
+	height: 150px;
+	/* background-color: #EDD3ED; */
+}
+
+/* 우측 도서/재고 현황 : 재고 수량 */
+div[id^="stock_book_quantity"] {
+	width: 70px;
+	height: 150px;
+	/* background-color:#D5E5DC; */
+	font-size: 1.5em;
+	color: #8389E0;
+}
+
+/* 우측 도서/재고 현황 : 재고 수량 한계 */
+div[id^="stock_book_limit"] {
+	width: 70px;
+	height: 150px;
+	/* background-color:#C8EBFA; */
+	font-size: 1.5em;
+	color: #232B99;
+}
+
+/* 도서/도서 재고 현황 : 짝수셀 */
+div.book_section:nth-child(2n) {
+	background-color: #FFFAFA;
+}
+
+/* 도서/도서 재고 현황 : 홀수셀 */
+div.book_section:nth-child(2n+1) {
+	background-color: #F5E6FA;
+}

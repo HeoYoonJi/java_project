@@ -1,0 +1,271 @@
+@charset "UTF-8";
+
+body {
+    margin: 0
+}
+
+div
+{
+    display: flex;
+    flex-direction: column;
+}
+
+/*상단 관리자 페이지*/
+#header
+{
+    width: 100%;
+    background-color: pink;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+/*로고 이미지-(현)관리자페이지*/
+#header_img
+{
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 15px;
+    display: flex;
+    flex-direction: row;
+}
+
+#main_img
+{
+  width: 200px;
+}
+
+.leftTab
+{
+    flex:1;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+}
+
+/*메인 로고 링크*/
+a
+{
+  text-decoration: none;
+  color: #000
+}
+
+.rightTab
+{
+    display: flex;
+    flex:1;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: flex-start;
+}
+
+.rightTab a
+{
+  color: #3e3e3e;
+  font-style: italic;
+}
+
+/*본문 전체 wrap box*/
+#wrap
+{
+    width: 100%;
+    max-width: 1300px;
+    margin: 0 auto;
+    min-height: 865px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+/*좌측 메뉴*/
+#menu
+{
+    min-width: 210px;
+    background-color: mistyrose;
+    border-left: 1px solid pink;
+    border-right: 1px solid pink;
+}
+
+#menu_header
+{
+  background: #fff;
+  padding: 10px 20px;
+  font-size: 20px;
+  border-bottom: 1px solid pink;
+  text-align: center;
+}
+
+#menu_content a
+{
+  padding: 10px 15px;
+  border-bottom: 1px solid pink;
+  color: #1f1f1f;
+}
+
+#menu_content a:hover
+{
+  background: pink
+}
+
+ul
+{
+    list-style-type: none;
+    text-align: left;
+    padding: 10px 35px 5px 35px;
+    font-size: 20px;
+}
+
+li
+{
+    padding-bottom: 20px;
+}
+
+li a, li a:visited
+{
+    display: block;
+    color: #000;
+    text-decoration: none;
+}
+
+li a:hover
+{
+    font-weight: bold;
+    color: #000;
+}
+
+/*li a:active
+{
+    display: block;
+    color: #000;
+    text-decoration: none;
+}*/
+
+/*도서목록 본문*/
+#contents
+{
+    width: 100%;
+    background: #fff;
+}
+
+#book_list_search
+{
+    padding: 15px;
+}
+
+#booklist_title
+{
+    width: 100%;
+    justify-content: center;
+    font-size: 24px;
+    padding: 10px 0;
+    margin: 10px 0;
+}
+
+/*버튼-전체 목록, 검색, 확인*/
+input[type=button], button
+{
+    background-color: lightcoral;
+    border: 0;
+    font-size: 15px;
+    padding: 5px 20px;
+    border-radius: 3px;
+    outline: 0;
+}
+
+input[type=button]:hover, button:hover
+{
+    background: #ff6666;
+}
+
+/*전체 보기 버튼*/
+/*#booklist_all_btn
+{
+    width: 100px;
+    height: 30px;
+}*/
+
+
+.rowStyleDiv
+{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 10px;
+}
+
+/*선택상자(select box)*/
+#select
+{
+    border: 2px lightcoral solid;
+    border-radius: 5px;
+    font-size: 15px;
+    padding: 5px 25px;
+    margin-right: 10px;
+    outline: 0;
+    text-align : justify;
+    text-align-last: center;
+}
+
+/*도서 검색창*/
+input#search_bar
+{
+    border: 2px solid gray;
+    border-radius: 3px;
+    font-size: 15px;
+    outline: 0;
+    padding: 5px 15px;
+    margin-right: 10px;
+}
+
+/*검색 버튼
+input#book_search_btn
+{
+    background-color: lightcoral;
+    border: 0;
+    font-size: 15px;
+    padding: 5px 20px;
+    margin-left: 5px;
+    border-radius: 3px;
+}*/
+
+/*전체 도서 목록*/
+#booklist_contents
+{
+    width: 100%;
+    margin-top: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.book_content
+{
+  flex-direction: row;
+  width: 100%
+}
+
+.book_content>div
+{
+  flex:1;
+  align-items: center;
+  padding : 15px 0;
+  border-bottom: 1px solid gray;
+}
+
+#show_all_btn
+{
+  max-width: 120px
+}
+
+/*하단*/
+#footer
+{
+    width: 100%;
+    margin: 0 auto;
+    height: 50px;
+    background-color: pink;
+    font-size: 20px;
+    text-align: center;
+}

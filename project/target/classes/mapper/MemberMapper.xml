@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper	namespace="com.ssm.project.mapper.MemberMapper">
+	
+	<select id="getUserByUsername" 
+			resultType="Users"
+			parameterType="String">
+		SELECT * FROM users 
+		WHERE username = #{username}
+	</select>
+	
+	<select id="hasUsername" 
+			resultType="int"
+			parameterType="String">
+		SELECT count(*) FROM user
+		WHERE username = #{username}
+	</select>
+	
+	<select id="getUserRolesByUsername" 
+			resultType="Users"
+			parameterType="String">
+		SELECT * FROM user_roles 
+		WHERE username = #{username}
+	</select>
+	
+	<insert id="insertUser" parameterType="Users">
+		INSERT INTO users VALUES 
+		(#{users.username}, #{users.password}, #{users.enabled})			
+	</insert>
+	
+	<insert id="insertUserRoles">
+		INSERT INTO user_roles VALUES 
+		(user_roles_seq.nextval, #{username}, #{role})
+	</insert>
+	
+	<!-- 회원 정보 수정 -->
+	<update id="updateUser">
+		UPDATE users SET password=#{password}
+		WHERE username=#{username}
+	</update>
+	
+	<!-- 회원 정보 삭제 -->
+	<!-- 삭제시 테이블 순서에 유의해야 됩니다 -->
+	<delete id="deleteUser" parameterType="String">
+		{call
+	        declare
+	        begin
+		        DELETE user_roles WHERE username=#{username};
+	            DELETE users WHERE username=#{username};
+	        end
+	    }
+	</delete>
+	
+	<!-- ////////////////////////////////////////////////////////////// -->
+	
+	<select id="isMember" parameterType="String" resultType="int">
+		SELECT count(*) FROM member_tbl
+		WHERE member_id=#{memberId}
+	</select>
+	
+	<select id="isEnableEmail" parameterType="String" resultType="int">
+		SELECT count(*) FROM member_tbl
+		WHERE member_email=#{memberEmail}
+	</select>
+	
+	<select id="isEnablePhone" parameterType="String" resultType="int">
+		SELECT count(*) FROM member_tbl
+		WHERE member_phone=#{memberPhone}
+	</select>
+	
+	<!-- 
+	INSERT INTO member_tbl VALUES
+('java1234', '자바맨', '홍길동', 'm', 'abcd@abcd.com',
+'010-1234-5678', '1995-05-01', '06128','서울특별시 강남구 강남대로102길 14(역삼동)*장연빌딩 4층 421호', sysdate);
+	 -->
+	<insert id="insertMember" parameterType="MemberVO">
+		INSERT INTO member_tbl VALUES 
+		(
+			#{memberId},
+			#{memberNickname},
+			#{memberName},
+			#{memberGender},
+			#{memberEmail},
+			#{memberPhone},
+			#{memberBirth},
+			#{memberZip},
+			#{memberAddress},
+			sysdate
+		)
+	</insert>
+	
+	<select id="getMember" parameterType="String" resultType="MemberVO">
+		SELECT * FROM member_tbl
+		WHERE member_id=#{memberId}
+	</select>	
+
+	<update id="updateMember" parameterType="MemberVO">
+		UPDATE member_tbl SET  
+			member_nickname=#{memberNickname},  
+			member_email=#{memberEmail}, 
+			member_phone=#{memberPhone}, 
+			member_zip=#{memberZip}, 
+			member_address=#{memberAddress}  
+		WHERE member_id=#{memberId}
+	</update>
+	
+	<delete id="deleteMember" parameterType="String">
+		DELETE member_tbl WHERE member_id=#{memberId}
+	</delete>
+	
+	<select id="getAllMembers" resultType="MemberVO">
+		SELECT * FROM member_tbl
+	</select>
+	
+	<select id="getMembersByPaging" parameterType="PageDTO" resultType="MemberVO">
+	    SELECT *   
+		FROM (SELECT ROWNUM,   
+		             m.*,    
+		             FLOOR((ROWNUM - 1) / #{limit} + 1) page 
+		      FROM (  
+		             SELECT * FROM member_tbl   
+		             ORDER BY member_id ASC  
+		           ) m    
+		      )     
+		WHERE page = #{page}
+	</select>
+	
+	<select id="getMembersByFieldAndPaging" parameterType="SearchVO" resultType="MemberVO">
+		SELECT * 
+		FROM (SELECT ROWNUM,
+		             m.*,
+		             FLOOR((ROWNUM - 1) / #{limit} + 1) page   
+		      FROM (  
+		             SELECT * FROM member_tbl   
+		             WHERE ${fld} ${expr}
+		             ORDER BY member_id ASC  
+		           ) m    
+		      )     
+		WHERE page = #{page}
+	</select>
+	
+	<select id="isEnableEmailUpdate" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM 
+		   (SELECT member_email FROM member_tbl 
+			  WHERE member_id != #{memberId}) 
+		WHERE member_email = #{email}
+	</select>
+	
+	<select id="isEnablePhoneUpdate" parameterType="hashMap" resultType="int">
+		SELECT count(*) FROM 
+			(SELECT member_phone FROM member_tbl 
+			 WHERE member_id != #{memberId}) 
+		WHERE member_phone = #{phone}
+	</select>
+	
+	<insert id="inserttemp" parameterType="TempVO">
+		insert into tmp values (#{birthday})
+	</insert>
+</mapper>

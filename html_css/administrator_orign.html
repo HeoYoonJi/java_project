@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="ko">
+    <head>
+        <meta charset="UTF-8">
+        <title>관리자 페이지</title>
+        <link rel="stylesheet" href="administrator.css" type="text/css">
+    </head>
+
+    <body>
+        <div id="header">
+            <div id="header_img">
+                <div class="leftTab">
+                  <a href="200609_pgtest1.html">
+                    <img id="main_img" src='./webtoon5.jpg'/>
+                  </a>
+                </div>
+
+                <div class="rightTab">
+                  <a href='#'>
+                    로그아웃
+                  </a>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="wrap">
+            <div id="menu">
+                <div id="menu_header">
+                  관리자 메뉴
+                </div>
+
+                <div id="menu_content">
+                  <div><a href="#">도서 목록</a></div>
+                  <div><a href="#">도서 관리</a></div>
+                  <div><a href="#">영역 관리</a></div>
+                  <div><a href="#">관리자 비밀번호 변경</a></div>
+                </div>
+
+            </div>
+
+            <div id="contents">
+                <div id="book_list_search">
+                    <div id="booklist_title">도서 목록</div>
+
+                    <div>
+                        <input id="show_all_btn" type="button" value="전체 보기">
+
+                        <div class="rowStyleDiv">
+                            <select id="select">
+                                <option>제목</option>
+                                <option>저자</option>
+                                <option>출판사</option>
+                            </select>
+                            <input type="text" id="search_bar">
+                            <input type="button" value="검색">
+                        </div>
+                    </div>
+                </div>
+
+                <div id="booklist_contents">
+                    <div class="book_content book_content_header">
+                      <div>이미지</div>
+                      <div>제목</div>
+                      <div>저자</div>
+                      <div>현재 위치</div>
+                      <div>가격</div>
+                      <div>등록일</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            하단부
+        </div>
+    </body>
+</html>

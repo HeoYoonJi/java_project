@@ -1,0 +1,42 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+}
+
+/* 내비게이션바 */
+ol#nav_top {
+	list-style-type: none;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+	background-color: #68007A;
+	width: 100%;
+	height: 70px;
+}
+
+a#home, a#logout_btn, a#entrance_btn {
+	float: left;
+}
+
+a#books_state_btn, a#books_stock_state_btn, a#stock_recovery_btn, a#book_apply_btn
+	{
+	float: right;
+}
+
+ol#nav_top li a {
+	display: block;
+	color: white;
+	text-align: center;
+	padding: 20px 25px 25px 30px;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 1.2em;
+}
+
+ol#nav_top li a:hover {
+	background-color: white;
+	color: black;
+	font-weight: bold;
+	font-size: 1.2em;
+}
